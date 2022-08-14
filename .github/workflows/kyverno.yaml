@@ -1,8 +1,7 @@
 name: kyverno-policy-test
-on: [push, workflow_dispatch]
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+on:
+  - push
+  - workflow_dispatch
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -14,9 +13,9 @@ jobs:
         curl -sLO https://github.com/kyverno/kyverno/releases/download/v1.7.2/kyverno-cli_v1.7.2_linux_x86_64.tar.gz
         tar -xf kyverno-cli_v1.7.2_linux_x86_64.tar.gz
         ./kyverno version
-    - name: Test resources
+    - name: Test new resources against existing policies
       run: |
         ./kyverno apply policies/ -r resources/*.yaml
-    - name: Test cases
+    - name: Test pre-defined cases
       run: |
         ./kyverno test tests/
