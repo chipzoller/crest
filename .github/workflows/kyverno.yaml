@@ -1,0 +1,23 @@
+name: kyverno-policy-test
+on: [push, workflow_dispatch]
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  # Publish with ko build
+  test:
+    runs-on: ubuntu-20.04
+    permissions:
+      packages: read
+      contents: read
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+    - name: Download Kyverno CLI
+      run: |
+        curl -sLO https://github.com/kyverno/kyverno/releases/download/v1.7.2/kyverno-cli_v1.7.2_linux_x86_64.tar.gz
+        tar -xvf kyverno-cli_v1.7.2_linux_x86_64.tar.gz
+        ./kyverno version
+    - name: Test resources
+      run: |
+        ./kyverno apply 
