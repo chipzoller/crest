@@ -4,18 +4,16 @@ on:
   - workflow_dispatch
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+    - name: Checkout repo
+      uses: actions/checkout@v3
     - name: Download Kyverno CLI
       run: |
         curl -sLO https://github.com/kyverno/kyverno/releases/download/v1.7.2/kyverno-cli_v1.7.2_linux_x86_64.tar.gz
         tar -xf kyverno-cli_v1.7.2_linux_x86_64.tar.gz
         ./kyverno version
     - name: Test new resources against existing policies
-      run: |
-        ./kyverno apply policies/ -r resources/*.yaml
+      run: ./kyverno apply policies/ -r resources/*.yaml
     - name: Test pre-defined cases
-      run: |
-        ./kyverno test tests/
+      run: ./kyverno test tests/
