@@ -16,5 +16,5 @@ spec:
       - name: container01
         image: dummyimagename
         securityContext:
-          allowPrivilegeEscalation: true
+          allowPrivilegeEscalation: false
           privileged: false
