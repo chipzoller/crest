@@ -15,7 +15,9 @@ jobs:
         ./kyverno version
     - name: Test new resources against existing policies
       run: |
-        ./kyverno apply policies/ -r resources/*.yaml
+        echo "## Apply summary" >> $GITHUB_STEP_SUMMARY
+        ./kyverno apply policies/ -r resources/*.yaml >> $GITHUB_STEP_SUMMARY
     - name: Test pre-defined cases
       run: |
-        ./kyverno test tests/
+        echo "## Apply summary" >> $GITHUB_STEP_SUMMARY
+        ./kyverno test tests/ >> $GITHUB_STEP_SUMMARY
