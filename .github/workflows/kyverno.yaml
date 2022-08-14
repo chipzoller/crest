@@ -19,5 +19,5 @@ jobs:
         ./kyverno apply policies/ -r resources/*.yaml >> $GITHUB_STEP_SUMMARY
     - name: Test pre-defined cases
       run: |
-        echo "## Apply summary" >> $GITHUB_STEP_SUMMARY
+        echo "## Test summary" >> $GITHUB_STEP_SUMMARY
         ./kyverno test tests/ >> $GITHUB_STEP_SUMMARY
