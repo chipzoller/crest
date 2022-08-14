@@ -17,4 +17,4 @@ spec:
         image: dummyimagename
         securityContext:
           allowPrivilegeEscalation: false
-          privileged: false
+          privileged: true
