@@ -1,6 +1,6 @@
 name: kyverno-policy-test
 on:
-  - push
+  - pull_request
   - workflow_dispatch
 jobs:
   test:
