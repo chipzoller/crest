@@ -20,4 +20,5 @@ jobs:
     - name: Test pre-defined cases
       run: |
         echo "## Test summary" >> $GITHUB_STEP_SUMMARY
-        ./kyverno test tests/ | sed -e 's/\x1b\[[0-9;]*m//g' >> $GITHUB_STEP_SUMMARY
+        ./kyverno test tests/ | sed -e 's/\x1b\[[0-9;]*m//g' > output.txt
+        cat output.txt >> $GITHUB_STEP_SUMMARY
