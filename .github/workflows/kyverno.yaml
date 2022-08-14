@@ -15,10 +15,7 @@ jobs:
         ./kyverno version
     - name: Test new resources against existing policies
       run: |
-        echo "## Apply summary" >> $GITHUB_STEP_SUMMARY
-        ./kyverno apply policies/ -r resources/*.yaml >> $GITHUB_STEP_SUMMARY
+        ./kyverno apply policies/ -r resources/*.yaml
     - name: Test pre-defined cases
       run: |
-        echo "## Test summary" >> $GITHUB_STEP_SUMMARY
-        ./kyverno test tests/ | sed -e 's/\x1b\[[0-9;]*m//g' > output.txt
-        cat output.txt >> $GITHUB_STEP_SUMMARY
+        ./kyverno test tests/
