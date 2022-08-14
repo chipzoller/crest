@@ -20,4 +20,4 @@ jobs:
         ./kyverno version
     - name: Test resources
       run: |
-        ./kyverno apply
+        ./kyverno apply policies/ -r resources/*.yaml
