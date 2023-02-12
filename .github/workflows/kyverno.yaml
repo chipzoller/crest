@@ -1,21 +1,45 @@
-name: kyverno-policy-test
+name: Merge workflow
+
+# only trigger on pull request closed events
 on:
-  - pull_request
-  - workflow_dispatch
+  pull_request:
+    types: [ closed ]
 env:
-  VERSION: v1.7.2
+  VERSION: v1.9.0
+
 jobs:
-  test:
+  merge_job:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+      id-token: write
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Download Kyverno CLI
-        run: |
-          curl -sLO https://github.com/kyverno/kyverno/releases/download/${{ env.VERSION }}/kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
-          tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
-          ./kyverno version
-      - name: Test new resources against existing policies
-        run: ./kyverno apply policies/ -r resources/
-      - name: Test pre-defined cases
-        run: ./kyverno test tests/
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Write author
+      run: |
+        curl -sLO https://github.com/kyverno/kyverno/releases/download/${{ env.VERSION }}/kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
+        tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
+        ./kyverno version
+        for f in $(ls ./incoming)
+        do
+        if [[ "$f" = *\.yaml ]]
+        then
+            echo "Adding authorship to incoming/$f"
+            ./kyverno apply author.yaml -r incoming/$f --set request.userInfo.username=${{github.triggering_actor}} -o outgoing/temp.yaml
+            sed '/^[[:space:]]*$/d' outgoing/temp.yaml > outgoing/$f
+            rm incoming/$f
+        fi
+        done
+    - name: Push manifests
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: GitHub Actions
+        commit: --signoff
+        default_author: github_actions
+        message: 'Manifests committed.'

@@ -1,0 +1,18 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-labels
+spec:
+  background: false
+  rules:
+  - name: add-author
+    match:
+      any:
+      - resources:
+          kinds:
+          - "*"
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            corp.org/author: "{{request.userInfo.username}}"
