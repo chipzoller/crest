@@ -1,7 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    corp.org/author: chipzoller
   name: gooddeployment01
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -13,8 +16,9 @@ spec:
         app: app
     spec:
       containers:
-      - name: container01
-        image: dummyimagename
+      - image: dummyimagename
+        name: container01
         securityContext:
           allowPrivilegeEscalation: false
           privileged: false
+---
