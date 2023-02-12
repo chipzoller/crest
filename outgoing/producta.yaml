@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    corp.org/author: chipzoller
   name: producta
   namespace: default
 spec:
@@ -14,8 +16,9 @@ spec:
         app: proda
     spec:
       containers:
-      - name: busybox
-        image: busybox:1.28
-        args:
+      - args:
         - sleep
         - 1d
+        image: busybox:1.28
+        name: busybox
+---
