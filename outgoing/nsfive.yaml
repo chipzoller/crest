@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    corp.org/author: chipzoller
+    corp.org/merger: chipzoller
+    corp.org/pr: "14"
+  name: five
+  namespace: default
+---
