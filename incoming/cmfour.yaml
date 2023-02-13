@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: some-config-mapas
+  name: some-config-map-4s
   namespace: defaultds
 data:
-  food: cheesed
+  food: egg
   day: mondaya
   color: redz
