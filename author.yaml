@@ -15,6 +15,6 @@ spec:
       patchStrategicMerge:
         metadata:
           labels:
-            corp.org/author: "{{request.userInfo.username}}"
+            corp.org/author: "{{request.githubprauthor}}"
             corp.org/pr: "{{request.githubpr | to_string(@) }}"
             corp.org/merger: "{{request.githubmerger}}"
