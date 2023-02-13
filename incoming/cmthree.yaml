@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-3
+data:
+  food: egg 
+  day: monday
+  color: red
