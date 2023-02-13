@@ -26,6 +26,7 @@ jobs:
         curl -sLO https://github.com/kyverno/kyverno/releases/download/${{ env.VERSION }}/kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         ./kyverno version
+        echo $GITHUB_CONTEXT
         for f in $(ls ./incoming)
         do
         if [[ "$f" = *\.yaml ]]
