@@ -35,7 +35,7 @@ jobs:
         if [[ "$f" = *\.yaml ]]
         then
             echo "Adding authorship to incoming/$f"
-            ./kyverno apply author.yaml -r incoming/$f --set request.userInfo.username=${{github.triggering_actor}},request.githubpr=${{github.event.number}},request.githubmerger=${{github.event.merged_by.login}} -o outgoing/temp.yaml
+            ./kyverno apply author.yaml -r incoming/$f --set request.userInfo.username=${{github.triggering_actor}},request.githubpr=${{github.event.number}},request.githubmerger=${{github.event.pull_request.merged_by.login}} -o outgoing/temp.yaml
             sed '/^[[:space:]]*$/d' outgoing/temp.yaml > outgoing/$f
             rm incoming/$f
             rm outgoing/temp.yaml
