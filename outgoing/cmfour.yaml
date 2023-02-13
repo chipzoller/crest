@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  color: redz
+  day: mondaya
+  food: egg
+kind: ConfigMap
+metadata:
+  labels:
+    corp.org/author: chipzoller
+    corp.org/merger: chipzoller
+    corp.org/pr: "12"
+  name: some-config-map-4s
+  namespace: defaultds
+---
