@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-config-map
+  namespace: default
+data:
+  food: egg
+  day: monday
+  color: red
+  
