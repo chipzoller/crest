@@ -21,12 +21,15 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+    - name: Echo vars
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
     - name: Write author
       run: |
         curl -sLO https://github.com/kyverno/kyverno/releases/download/${{ env.VERSION }}/kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         ./kyverno version
-        echo $GITHUB_CONTEXT
         for f in $(ls ./incoming)
         do
         if [[ "$f" = *\.yaml ]]
